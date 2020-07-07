@@ -11,6 +11,15 @@ export default {
       type: Object,
       default: {},
       required: true
+    },
+    rules: {
+      type: Object,
+      default: {}
+    }
+  },
+  provide() {
+    return {
+      form: this
     }
   },
   components: {
@@ -31,7 +40,11 @@ export default {
     //
   },
   methods: {
-    //
+    validate(fn) {
+      Promise.all(this.$children.filter(i => i.prop).map(item => { return item.validate() }))
+        .then(() => fn(true))
+        .catch(() => fn(false))
+    }
   },
 }
 </script>

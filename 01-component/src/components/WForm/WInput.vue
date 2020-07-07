@@ -1,6 +1,6 @@
 <template>
   <div class="wInput">
-    <input type="text" :value="value" @input="changeInput" />
+    <input type="text" :value="value" @input="changeInput" v-bind="$attrs" />
   </div>
 </template>
 <script>
@@ -31,6 +31,7 @@ export default {
   methods: {
     changeInput(e){
       this.$emit('input', e.target.value)
+      this.$parent.$emit('validate')
     }
   },
 }
